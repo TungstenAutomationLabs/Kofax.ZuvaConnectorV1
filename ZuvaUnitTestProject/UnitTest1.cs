@@ -11,59 +11,56 @@ namespace ZuvaUnitTestProject
         [TestMethod]
         public void TestZuvaFlow()
         {
-            //string zuvatoken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdfaWQiOiJvcmdfcnhRQnFpQzlPeWdNM3VCOCIsInRvayI6ImNpMHJsN25lcW92Y3BlZDJkcmRnIiwidSI6ImF1dGgwfDYzZDMzYzBiMTNlZmRhMDY0ZDNiZDc0ZiJ9.Ox4Ijl_Xs0ifoxZSZR3kTspxGK9EphlaYEgX0ljbhOg";
-            string zuvatoken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdfaWQiOiJvcmdfQ3FZeHlNRGR1UVdmc0NOaiIsInRvayI6ImNuY2hhYWxzc2NmYzczZDE5ZzEwIiwidSI6ImF1dGgwfDY1ZDkwNTY3ODkyNzRmOGQ2YTIwNTQ1YSJ9.0DmDFhT1fvWXxZtYNeD__LSaYE2NzXtOCMkZWCEmA5Y";
+            string zuvatoken = "Bearer ";
+            string fieldID = "<Zuva Field ID>";
             ZuvaConnector zuvaConnector = new ZuvaConnector();
         
-            string fileid = zuvaConnector.ZuvaUploadFileKTASDK("41422ecd-b26a-4a5e-ae2c-b12601119176    ", "https://ktacloudeco.ktaprt.kofaxcloud.com//services/sdk/", "2BDC955ED880C84B9CB52287D59EBF37", zuvatoken);
-            //string fileid = zuvaConnector.ZuvaUploadFileKTASDK("4f25cb8f-5db3-4355-85dc-b123016bdead", "https://ktacloudeco-dev.ktaprt.dev.kofaxcloud.com/services/sdk/", "D2A967C768C7854B91C210DF77F118A4", zuvatoken);
-
-            //Assert.IsNotNull(fileid);
+            string fileid = zuvaConnector.ZuvaUploadFileKTASDK("<Document.InstanceID>", "https://<your tenant here>//services/sdk/", "<Your SessionID here>", zuvatoken);
+            Assert.IsNotNull(fileid);
 
 
             //string classification = zuvaConnector.ZuvaGetClassificationResult(fileid, zuvatoken);
             //Assert.IsNotNull(classification);
 
-            //string extraction = zuvaConnector.ZuvaGetExtractionResult("ck4r8pj95kjs73chq1c0", "668ee3b5-e15a-439f-9475-05a21755a5c1\", \"25d677a1-70d0-43c2-9b36-d079733dd020,\"c83868ae-269a-4a1b-b2af-c53e5f91efca\",\"e211dec8-5c81-41e6-9ec1-ef21afde98a5\",\"7394e722-9668-4f84-a846-c342fa15ad75\",98086156-f230-423c-b214-27f542e72708\", \"f743f363-1d8b-435b-8812-204a6d883834\"", zuvatoken);
-            string extraction = zuvaConnector.ZuvaGetExtractionResult(fileid, "f743f363-1d8b-435b-8812-204a6d883834", zuvatoken);
-            //string extraction = zuvaConnector.ZuvaExtractAndConcat("ckmofsuu7qmc738nngig", "6ef55bcb-8814-4928-a9e0-e6ca7f27a73a", zuvatoken, "");
-            //string extraction = zuvaConnector.ZuvaGetAnswerResult(fileid, "f743f363-1d8b-435b-8812-204a6d883834", zuvatoken);
+            string extraction = zuvaConnector.ZuvaGetExtractionResult(fileid, fieldID, zuvatoken);
+            //string extraction = zuvaConnector.ZuvaExtractAndConcat(fileid, fieldID, zuvatoken, "TEST");
+            //string extraction = zuvaConnector.ZuvaGetAnswerResult(fileid, fieldID, zuvatoken);
             Assert.IsNotNull(extraction);
 
-            //string norm = zuvaConnector.GetNormalizationFieldFromExtractionResultForField(extraction, "e211dec8-5c81-41e6-9ec1-ef21afde98a5", "durations");
+            //string norm = zuvaConnector.GetNormalizationFieldFromExtractionResultForField(extraction, fieldID, "durations");
             //Assert.IsNotNull(norm);
 
-            //string answer = zuvaConnector.GetAnswerResultsForField("8d6970e4-1a44-4f4d-8fcf-3140a6634213", extraction);
+            //string answer = zuvaConnector.GetAnswerResultsForField(fieldID, extraction);
             //Assert.IsNotNull(answer);
 
-            string concat = zuvaConnector.ConcatExtractionResultsForField("6ef55bcb-8814-4928-a9e0-e6ca7f27a73a", extraction);
+            string concat = zuvaConnector.ConcatExtractionResultsForField(fieldID, extraction);
             Assert.IsNotNull(concat);
 
-            string first = zuvaConnector.GetFirstFromExtractionResultForField("668ee3b5-e15a-439f-9475-05a21755a5c1", extraction);
+            string first = zuvaConnector.GetFirstFromExtractionResultForField(fieldID, extraction);
             Assert.IsNotNull(first);
 
-            string last = zuvaConnector.GetLastFromExtractionResultForField("668ee3b5-e15a-439f-9475-05a21755a5c1", extraction);
+            string last = zuvaConnector.GetLastFromExtractionResultForField(fieldID, extraction);
             Assert.IsNotNull(last);
 
-            string firstnum = zuvaConnector.GetFirstNumberFromExtractionResultForField("668ee3b5-e15a-439f-9475-05a21755a5c1", extraction);
+            string firstnum = zuvaConnector.GetFirstNumberFromExtractionResultForField(fieldID, extraction);
             Assert.IsNotNull(firstnum);
 
-            string lastnum = zuvaConnector.GetLastNumberFromExtractionResultForField("668ee3b5-e15a-439f-9475-05a21755a5c1", extraction);
+            string lastnum = zuvaConnector.GetLastNumberFromExtractionResultForField(fieldID, extraction);
             Assert.IsNotNull(lastnum);
 
-            string sum = zuvaConnector.GetSumOfAllNumbersFromExtractionResultForField("668ee3b5-e15a-439f-9475-05a21755a5c1", extraction);
+            string sum = zuvaConnector.GetSumOfAllNumbersFromExtractionResultForField(fieldID, extraction);
             Assert.IsNotNull(sum);
 
-            string firstdate = zuvaConnector.GetFirstDateFromExtractionResultForField("668ee3b5-e15a-439f-9475-05a21755a5c1", extraction);
+            string firstdate = zuvaConnector.GetFirstDateFromExtractionResultForField(fieldID, extraction);
             Assert.IsNotNull(firstdate);
 
-            string lastdate = zuvaConnector.GetLastDateFromExtractionResultForField("668ee3b5-e15a-439f-9475-05a21755a5c1", extraction);
+            string lastdate = zuvaConnector.GetLastDateFromExtractionResultForField(fieldID, extraction);
             Assert.IsNotNull(lastdate);
 
-            string earliest = zuvaConnector.GetEarliestDateFromExtractionResultForField("668ee3b5-e15a-439f-9475-05a21755a5c1", extraction);
+            string earliest = zuvaConnector.GetEarliestDateFromExtractionResultForField(fieldID, extraction);
             Assert.IsNotNull(earliest);
 
-            string latest = zuvaConnector.GetLatestDateFromExtractionResultForField("668ee3b5-e15a-439f-9475-05a21755a5c1", extraction);
+            string latest = zuvaConnector.GetLatestDateFromExtractionResultForField(fieldID, extraction);
             Assert.IsNotNull(latest);
 
         }
